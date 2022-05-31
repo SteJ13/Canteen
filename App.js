@@ -20,7 +20,6 @@ export default function App() {
   const [appConfig, setAppConfig] = useState(null);
   const [user, setUser] = useState(null);
   const [auth, setAuth] = useState(false);
-  console.log('auth: ', auth);
 
   const [loader, setLoader] = useState(true);
   const [alert, setAlert] = useState({ show: false, title: '', message: '' });
@@ -58,7 +57,8 @@ export default function App() {
     auth,
     handleLogout,
     setAuth,
-    setAlert
+    setAlert,
+    setAppConfig
   }
 
 
