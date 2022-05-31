@@ -1,8 +1,9 @@
 import { Button } from '@rneui/base';
-import React from 'react';
+import React, { useContext } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, View, Image } from 'react-native';
 import Dropdown from '../Components/Dropdown';
+import { AuthContext } from '../../App';
 
 
 const CollegeSelect = ({ navigation }) => {
@@ -12,6 +13,8 @@ const CollegeSelect = ({ navigation }) => {
         { name: 'St. Annes College', id: 2, 'url': 'https://ssac.higrade.live/' },
     ];
 
+    const { setAppConfig } = useContext(AuthContext);
+
     const [selected, setSelected] = React.useState(null);
 
     const handleSubmit = async () => {
@@ -19,6 +22,7 @@ const CollegeSelect = ({ navigation }) => {
             await AsyncStorage.setItem('hgp_selected_college', JSON.stringify(
                 data.filter(item => item.id === selected)[0]
             ));
+            setAppConfig(data.filter(item => item.id === selected)[0]);
             navigation.navigate('Login');
         }
     }
