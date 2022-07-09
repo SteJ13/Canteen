@@ -10,6 +10,7 @@ import Routes from './src/Routes';
 import Loader from './src/Components/Loader';
 import Login from './src/Pages/Users/Login';
 import CollegeSelect from './src/Pages/CollegeSelect';
+import axios from 'axios';
 
 
 export const AuthContext = createContext();
@@ -27,7 +28,14 @@ export default function App() {
   useLayoutEffect(() => {
     const getData = async () => {
       let appConfig = await AsyncStorage.getItem('hgp_selected_college');
-      if (appConfig) setAppConfig(JSON.parse(appConfig));
+      if (appConfig) {
+        let config = JSON.parse(appConfig);
+        setAppConfig(config)
+        axios.defaults.baseURL = `${config.url}api/`;
+        // axios.defaults.headers.common['Authorization'] = `Bearer ${config.token}`;
+        axios.defaults.headers.common['Accept'] = '*/*';
+        axios.defaults.headers.common['Content-Type'] = 'application/json';
+      };
       let user = await AsyncStorage.getItem('hgp_user_details');
       if (user) {
         setUser(JSON.parse(user));

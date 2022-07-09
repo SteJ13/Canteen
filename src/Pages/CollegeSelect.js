@@ -4,12 +4,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, View, Image } from 'react-native';
 import Dropdown from '../Components/Dropdown';
 import { AuthContext } from '../../App';
+import axios from 'axios';
 
 
 const CollegeSelect = ({ navigation }) => {
 
     const data = [
-        { name: 'Don Bosco College, Yelagiri Hills', id: 1, 'url': 'http://dbcy.higrade.live/' },
+        { name: 'Don Bosco College, Yelagiri Hills', id: 1, 'url': 'http://localhost:8000/' },
         { name: 'St. Annes College', id: 2, 'url': 'https://ssac.higrade.live/' },
     ];
 
@@ -22,6 +23,11 @@ const CollegeSelect = ({ navigation }) => {
             await AsyncStorage.setItem('hgp_selected_college', JSON.stringify(
                 data.filter(item => item.id === selected)[0]
             ));
+            let url = data.filter(item => item.id === selected)[0].url;
+            axios.defaults.baseURL = `${url}api/`;
+            // axios.defaults.headers.common['Authorization'] = `Bearer ${config.token}`;
+            axios.defaults.headers.common['Accept'] = '*/*';
+            axios.defaults.headers.common['Content-Type'] = 'application/json';
             setAppConfig(data.filter(item => item.id === selected)[0]);
             navigation.navigate('Login');
         }

@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "@rneui/base";
+import axios from "axios";
 import { StatusBar } from "expo-status-bar";
 import React, { useContext, useState } from "react";
 import {
@@ -9,13 +10,12 @@ import {
     Image,
     TextInput,
     TouchableOpacity,
-    Alert,
 } from "react-native";
 import { useValidation } from 'react-native-form-validator';
 
 import { AuthContext } from "../../../App";
 import Loader from "../../Components/Loader";
-
+import axiosInstance from "../../Service/AxiosInstance";
 
 export default function Login({ navigation }) {
 
@@ -44,9 +44,7 @@ export default function Login({ navigation }) {
                         await AsyncStorage.setItem('hgp_user_details', JSON.stringify({ email, password }));
                         setAuth(true);
                         setUser({ email, password });
-                        setTimeout(() => {
-                            navigation.navigate("Dashboard")
-                        }, 1000);
+                        navigation.navigate("Dashboard")
                     } else {
                         setAlert({ show: true, title: 'Login Failed', message: 'Invalid username or password' });
                     }
@@ -61,6 +59,11 @@ export default function Login({ navigation }) {
     }
 
     const handleStrg = () => {
+        // axios.get('testing/').then(res => {
+        //     console.log('res:  2', res);
+        // }).catch(err => {
+        //     console.log('err: ', err);
+        // })
         AsyncStorage.clear();
     }
 
@@ -110,7 +113,7 @@ export default function Login({ navigation }) {
                     LOGIN
                 </Text>
             </TouchableOpacity>
-            <Button onPress={() => handleStrg()} >Clear remove for production</Button>
+            {/* <Button onPress={() => handleStrg()} >Console check print</Button> */}
         </View>
     );
 }

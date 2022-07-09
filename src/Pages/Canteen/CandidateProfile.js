@@ -6,17 +6,30 @@ import {
     Image,
 } from 'react-native';
 
-export default function UserProfileView({ user }) {
+export default function CandidateProfile({ user, loader }) {
 
     return (
-        <View style={styles.container}>
+        <View>
             <View style={styles.header}>
                 <View style={styles.headerContent}>
-                    <Image style={styles.avatar}
-                        source={{ uri: 'https://bootdey.com/img/Content/avatar/avatar6.png' }} />
-                    <Text style={styles.name}>{user?.name} </Text>
-                    <Text style={styles.userInfo}>{user?.roll_no} </Text>
-                    <Text style={styles.userInfo}>{user?.clas} </Text>
+
+                    {
+                        loader ?
+                            <View>
+                                <Image style={styles.avatar}
+                                    source={{ uri: 'https://bootdey.com/img/Content/avatar/avatar6.png' }} />
+                                <Text style={styles.headerContent}> Loading ... </Text>
+                            </View>
+                            :
+                            <>
+                                <Image style={styles.avatar}
+                                    source={{ uri: 'https://bootdey.com/img/Content/avatar/avatar6.png' }} />
+                                <Text style={styles.name}>{user?.name} </Text>
+                                <Text style={styles.userInfo}>{user?.roll_no} </Text>
+                                <Text style={styles.userInfo}>{user?.clas} </Text>
+                            </>
+                    }
+
                 </View>
             </View>
 

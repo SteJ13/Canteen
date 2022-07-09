@@ -3,13 +3,12 @@ import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Canteen from './Pages/Canteen';
+import Canteen from './Pages/Canteen/ConCanteen';
 import Dashboard from './Pages/Dashboard';
 import Login from './Pages/Users/Login';
 import { AuthContext } from '../App';
 import UserData from './Pages/UserData';
 import Sessions from './Pages/Sessions';
-
 
 const Stack = createNativeStackNavigator();
 
@@ -70,6 +69,10 @@ const Routes = () => {
                 <Stack.Screen
                     name="Sessions"
                     component={Sessions}
+                />
+                <Stack.Screen
+                    name="Fee Management"
+                    component={require('./Pages/FeeManagement/ConFeeManagement').default}
                 />
             </Stack.Navigator>
         </NavigationContainer>
